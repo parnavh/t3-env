@@ -1,6 +1,6 @@
 import { Parser, inferParser } from "./parser";
 
-export type ParseFn<TType> = (value: unknown) => Promise<TType> | TType;
+export type ParseFn<TType> = (value: unknown) => TType;
 
 export function getParseFn<TParser extends Parser>(
   procedureParser: TParser
@@ -14,13 +14,7 @@ export function getParseFn<TParser extends Parser>(
   if ("parse" in procedureParser) {
     // ParserZodEsque
     // ParserMyZodEsque
-    // ParserValibotEsque
     return procedureParser.parse.bind(procedureParser);
-  }
-
-  if ("create" in procedureParser) {
-    // ParserSuperstructEsque
-    return procedureParser.create.bind(procedureParser);
   }
 
   if ("validateSync" in procedureParser) {
